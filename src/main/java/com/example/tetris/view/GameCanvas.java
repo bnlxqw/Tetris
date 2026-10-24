@@ -16,7 +16,7 @@ public class GameCanvas extends Canvas {
     }
 
     public void render(Board board, Piece currentPiece) {
-        gc.setFillColor(Color.web("#1e1e24"));
+        gc.setFill(Color.web("#1e1e24"));
         gc.fillRect(0, 0, getWidth(), getHeight());
 
         drawGrid();
@@ -70,14 +70,14 @@ public class GameCanvas extends Canvas {
         int pixelX = x * BLOCK_SIZE;
         int pixelY = y * BLOCK_SIZE;
 
-        gc.setFillColor(color);
+        gc.setFill(color);
         gc.fillRect(pixelX, pixelY, BLOCK_SIZE, BLOCK_SIZE);
 
-        gc.setFillColor(color.brighter());
+        gc.setFill(color.brighter());
         gc.fillRect(pixelX, pixelY, BLOCK_SIZE, 3);
         gc.fillRect(pixelX, pixelY, 3, BLOCK_SIZE);
 
-        gc.setFillColor(color.darker());
+        gc.setFill(color.darker());
         gc.fillRect(pixelX, pixelY + BLOCK_SIZE - 3, BLOCK_SIZE, 3);
         gc.fillRect(pixelX + BLOCK_SIZE - 3, pixelY, 3, BLOCK_SIZE);
     }

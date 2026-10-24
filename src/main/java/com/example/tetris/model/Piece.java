@@ -13,6 +13,12 @@ public class Piece {
         this.y = 0;
     }
 
+    public static Piece getRandomPiece() {
+        PieceType[] types = PieceType.values();
+        PieceType randomType = types[(int) (Math.random() * types.length)];
+        return new Piece(randomType);
+    }
+
     public void rotate() {
         int rows = shape.length;
         int cols = shape[0].length;

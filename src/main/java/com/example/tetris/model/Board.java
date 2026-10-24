@@ -27,30 +27,28 @@ public class Board {
         return null;
     }
 
-    public boolean isValidPosition(Piece piece) {
+    public boolean isValidPosition(Piece piece, int targetX, int targetY) {
         int[][] shape = piece.getShape();
-        int px = piece.getX();
-        int py = piece.getY();
-
         for (int r = 0; r < shape.length; r++) {
             for (int c = 0; c < shape[r].length; c++) {
                 if (shape[r][c] != 0) {
-                    int boardX = px + c;
-                    int boardY = py + r;
+                    int boardX = targetX + c;
+                    int boardY = targetY + r;
 
-                    if (boardX < 0 || boardX >= WIDTH || boardY >= HEIGHT) {
+                    if (boardX < 0 || boardX >= 10 || boardY >= 20) {
                         return false;
                     }
-                    if (boardY < 0) {
-                        continue;
-                    }
-                    if (grid[boardY][boardX] != null) {
+                    if (boardY >= 0 && grid[boardY][boardX] != null) {
                         return false;
                     }
                 }
             }
         }
         return true;
+    }
+
+    public boolean isValidPosition(Piece piece) {
+        return isValidPosition(piece, piece.getX(), piece.getY());
     }
 
     public void mergePiece(Piece piece) {
