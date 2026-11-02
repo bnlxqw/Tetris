@@ -1,5 +1,6 @@
 package com.example.tetris.controller;
 
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 public class InputHandler {
@@ -10,11 +11,20 @@ public class InputHandler {
     }
 
     public void handlePressed(KeyEvent event) {
-        if (gameController == null || !gameController.isPlaying()) {
+        if (gameController == null) {
             return;
         }
 
-        switch (event.getCode()) {
+        KeyCode code = event.getCode();
+
+        if (!gameController.isPlaying()) {
+            if (code == KeyCode.R) {
+                gameController.restartGame();
+            }
+            return;
+        }
+
+        switch (code) {
             case LEFT -> gameController.moveLeft();
             case RIGHT -> gameController.moveRight();
             case DOWN -> gameController.moveDown();

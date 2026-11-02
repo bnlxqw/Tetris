@@ -128,6 +128,13 @@ public class GameController {
         System.out.println("Game Over! Final Score: " + scoreSystem.getScore());
     }
 
+    public void restartGame() {
+        if (gameLoop != null) {
+            gameLoop.stop();
+        }
+        startGame();
+    }
+
     public boolean isPlaying() {
         return isPlaying;
     }

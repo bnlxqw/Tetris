@@ -1,36 +1,26 @@
 package com.example.tetris.model;
 
 public class ScoreSystem {
-    private int score;
-    private int lines;
-    private int level;
+    private int score = 0;
+    private int lines = 0;
+    private int highScore = 0;
 
-    public ScoreSystem() {
-        reset();
+    public void addLines(int count) {
+        lines += count;
+        switch (count) {
+            case 1 -> score += 100;
+            case 2 -> score += 300;
+            case 3 -> score += 500;
+            case 4 -> score += 800;
+        }
+        if (score > highScore) {
+            highScore = score;
+        }
     }
 
     public void reset() {
         score = 0;
         lines = 0;
-        level = 1;
-    }
-
-    public void addLines(int clearedLines) {
-        if (clearedLines <= 0) return;
-
-        lines += clearedLines;
-
-        int points = switch (clearedLines) {
-            case 1 -> 100;
-            case 2 -> 300;
-            case 3 -> 500;
-            case 4 -> 800;
-            default -> clearedLines * 200;
-        };
-
-        score += points * level;
-
-        level = (lines / 10) + 1;
     }
 
     public int getScore() {
@@ -41,7 +31,7 @@ public class ScoreSystem {
         return lines;
     }
 
-    public int getLevel() {
-        return level;
+    public int getHighScore() {
+        return highScore;
     }
 }

@@ -2,7 +2,6 @@ package com.example.tetris.view;
 
 import com.example.tetris.model.Piece;
 import com.example.tetris.model.ScoreSystem;
-import javafx.geometry.Insets;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
@@ -12,6 +11,7 @@ import javafx.scene.text.Font;
 
 public class SidePanel extends VBox {
     private final Label scoreLabel;
+    private final Label highScoreLabel; // Метка рекорда
     private final Label linesLabel;
     private final Canvas nextPieceCanvas;
     private final GraphicsContext nextGc;
@@ -22,7 +22,7 @@ public class SidePanel extends VBox {
         setPrefWidth(150);
         setPrefHeight(600);
         setStyle("-fx-background-color: #121216; -fx-padding: 20px;");
-        setSpacing(20);
+        setSpacing(15);
 
         Label titleLabel = new Label("TETRIS");
         titleLabel.setFont(Font.font(18));
@@ -31,6 +31,10 @@ public class SidePanel extends VBox {
         scoreLabel = new Label("Score:\n0");
         scoreLabel.setFont(Font.font(14));
         scoreLabel.setTextFill(Color.web("#a0a0a5"));
+
+        highScoreLabel = new Label("High:\n0");
+        highScoreLabel.setFont(Font.font(14));
+        highScoreLabel.setTextFill(Color.web("#e5c07b"));
 
         linesLabel = new Label("Lines:\n0");
         linesLabel.setFont(Font.font(14));
@@ -43,11 +47,12 @@ public class SidePanel extends VBox {
         nextPieceCanvas = new Canvas(100, 100);
         nextGc = nextPieceCanvas.getGraphicsContext2D();
 
-        getChildren().addAll(titleLabel, scoreLabel, linesLabel, nextLabel, nextPieceCanvas);
+        getChildren().addAll(titleLabel, scoreLabel, highScoreLabel, linesLabel, nextLabel, nextPieceCanvas);
     }
 
     public void update(ScoreSystem scoreSystem) {
         scoreLabel.setText("Score:\n" + scoreSystem.getScore());
+        highScoreLabel.setText("High:\n" + scoreSystem.getHighScore());
         linesLabel.setText("Lines:\n" + scoreSystem.getLines());
     }
 
