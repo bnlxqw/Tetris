@@ -19,7 +19,7 @@ public class HelloApplication extends Application {
         GameCanvas gameCanvas = new GameCanvas();
         SidePanel sidePanel = new SidePanel(scoreSystem);
 
-        GameController gameController = new GameController(board, scoreSystem, gameCanvas);
+        GameController gameController = new GameController(board, scoreSystem, gameCanvas, sidePanel);
         InputHandler inputHandler = new InputHandler(gameController);
         
         HBox root = new HBox(gameCanvas, sidePanel);

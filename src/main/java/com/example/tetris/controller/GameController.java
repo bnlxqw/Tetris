@@ -2,17 +2,19 @@ package com.example.tetris.controller;
 
 import com.example.tetris.model.Board;
 import com.example.tetris.model.Piece;
-import com.example.tetris.model.PieceType;
 import com.example.tetris.model.ScoreSystem;
 import com.example.tetris.view.GameCanvas;
+import com.example.tetris.view.SidePanel;
 import javafx.animation.AnimationTimer;
 
 public class GameController {
     private final Board board;
     private final ScoreSystem scoreSystem;
     private final GameCanvas gameCanvas;
+    private final SidePanel sidePanel;
 
     private Piece currentPiece;
+    private Piece nextPiece; // Следующая фигурка
     private AnimationTimer gameLoop;
 
     private boolean isPlaying;
@@ -21,10 +23,11 @@ public class GameController {
     private long lastUpdate = 0;
     private static final long DROP_INTERVAL_NS = 500_000_000L;
 
-    public GameController(Board board, ScoreSystem scoreSystem, GameCanvas gameCanvas) {
+    public GameController(Board board, ScoreSystem scoreSystem, GameCanvas gameCanvas, SidePanel sidePanel) {
         this.board = board;
         this.scoreSystem = scoreSystem;
         this.gameCanvas = gameCanvas;
+        this.sidePanel = sidePanel;
         this.isPlaying = false;
         this.isPaused = false;
     }
@@ -32,7 +35,12 @@ public class GameController {
     public void startGame() {
         board.clear();
         scoreSystem.reset();
-        spawnPiece();
+        sidePanel.update(scoreSystem);
+
+        currentPiece = Piece.getRandomPiece();
+        nextPiece = Piece.getRandomPiece();
+        sidePanel.drawNextPiece(nextPiece);
+
         isPlaying = true;
         isPaused = false;
 
@@ -52,7 +60,10 @@ public class GameController {
     }
 
     private void spawnPiece() {
-        currentPiece = Piece.getRandomPiece();
+        currentPiece = nextPiece;
+        nextPiece = Piece.getRandomPiece();
+        sidePanel.drawNextPiece(nextPiece);
+
         if (!board.isValidPosition(currentPiece, currentPiece.getX(), currentPiece.getY())) {
             gameOver();
         }
@@ -80,7 +91,10 @@ public class GameController {
         } else {
             board.mergePiece(currentPiece);
             int clearedLines = board.clearLines();
-            scoreSystem.addLines(clearedLines);
+            if (clearedLines > 0) {
+                scoreSystem.addLines(clearedLines);
+                sidePanel.update(scoreSystem);
+            }
             spawnPiece();
         }
     }
