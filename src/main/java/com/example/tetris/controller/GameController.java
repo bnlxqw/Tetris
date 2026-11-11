@@ -14,7 +14,7 @@ public class GameController {
     private final SidePanel sidePanel;
 
     private Piece currentPiece;
-    private Piece nextPiece; // Следующая фигурка
+    private Piece nextPiece;
     private AnimationTimer gameLoop;
 
     private boolean isPlaying;

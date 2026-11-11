@@ -9,7 +9,7 @@ public class Piece {
     public Piece(PieceType type) {
         this.type = type;
         this.shape = cloneMatrix(type.getShape());
-        this.x = 4 - shape[0].length / 2; //вычисляет начальную координату x так, чтобы фигурка появлялась ровно по центру верхней части поля.
+        this.x = 4 - shape[0].length / 2;
         this.y = 0;
     }
 

@@ -11,7 +11,7 @@ import javafx.scene.text.Font;
 
 public class SidePanel extends VBox {
     private final Label scoreLabel;
-    private final Label highScoreLabel; // Метка рекорда
+    private final Label highScoreLabel;
     private final Label linesLabel;
     private final Canvas nextPieceCanvas;
     private final GraphicsContext nextGc;
