@@ -27,7 +27,7 @@ public class HelloApplication extends Application {
 
         scene.setOnKeyPressed(inputHandler::handlePressed);
 
-        stage.setTitle("Tetris - JavaFX Project");
+        stage.setTitle("Tetris");
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
